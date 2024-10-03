@@ -55,6 +55,9 @@ int main() {
 
   cout << "Database '" << dbName << "' opened successfully!" << endl;
 
+  // Включаем проверку внешних ключей
+  executeSQL(db, "PRAGMA foreign_keys = ON;");
+
   string command;
   cout << "Enter SQL commands (type 'C' or 'EXIT' to quit):" << endl;
   cout << ">" << flush;
