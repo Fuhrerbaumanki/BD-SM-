@@ -20,10 +20,10 @@ SELECT * FROM Visits;
 -- ОПТИМИЗИРОВАТЬ ГОВНО НИЖЕ
 
 -- Задание 1: Все номера комнат, где гости мужского пола, не из Европы
-SELECT DISTINCT Room FROM Visits AS JOSTKA_Buxaut WHERE (GuestID1 IN (SELECT GuestID FROM Guests WHERE Gender = 'Male') OR GuestID2 IN (SELECT GuestID FROM Guests WHERE Gender = 'Male')) AND (GuestID1 NOT IN (SELECT GuestID FROM Guests WHERE Continent = 'Europe') AND GuestID2 NOT IN (SELECT GuestID FROM Guests WHERE Continent = 'Europe'));
+SELECT DISTINCT V.Room FROM Visits V JOIN Guests G1 ON V.GuestID1 = G1.GuestID JOIN Guests G2 ON V.GuestID2 = G2.GuestID WHERE (G1.Gender = 'Male' AND G1.Continent <> 'Europe') OR (G2.Gender = 'Male' AND G2.Continent <> 'Europe');
 
 -- Задание 2: Номера, где работают на удалёнке (двое гостей из Европы одного пола)
-SELECT DISTINCT Room FROM Visits AS Rabotaut_na_udalence WHERE (GuestID1 IN (SELECT GuestID FROM Guests WHERE Continent = 'Europe') AND GuestID2 IN (SELECT GuestID FROM Guests WHERE Continent = 'Europe')) AND ((GuestID1 IN (SELECT GuestID FROM Guests WHERE Gender = 'Male') AND GuestID2 IN (SELECT GuestID FROM Guests WHERE Gender = 'Male')) OR (GuestID1 IN (SELECT GuestID FROM Guests WHERE Gender = 'Female') AND GuestID2 IN (SELECT GuestID FROM Guests WHERE Gender = 'Female')));
+SELECT DISTINCT V.Room FROM Visits V JOIN Guests G1 ON V.GuestID1 = G1.GuestID JOIN Guests G2 ON V.GuestID2 = G2.GuestID WHERE G1.Continent = 'Europe' AND G2.Continent = 'Europe' AND G1.Gender = G2.Gender;
 
 -- Задание 3: Номера, где работают на удалёнке (мужчина и женщина)
-SELECT DISTINCT Room FROM Visits AS Rabotaut_na_udalence_odobraym WHERE (GuestID1 IN (SELECT GuestID FROM Guests WHERE Gender = 'Male') AND GuestID2 IN (SELECT GuestID FROM Guests WHERE Gender = 'Female')) OR (GuestID1 IN (SELECT GuestID FROM Guests WHERE Gender = 'Female') AND GuestID2 IN (SELECT GuestID FROM Guests WHERE Gender = 'Male'));
+SELECT DISTINCT V.Room FROM Visits V JOIN Guests G1 ON V.GuestID1 = G1.GuestID JOIN Guests G2 ON V.GuestID2 = G2.GuestID WHERE (G1.Gender = 'Male' AND G2.Gender = 'Female') OR (G1.Gender = 'Female' AND G2.Gender = 'Male');
