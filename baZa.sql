@@ -17,8 +17,6 @@ INSERT INTO Visits (VisitID, Room, GuestID1, GuestID2) VALUES (1, 101, 1, 2), (2
 -- Задание 0: Показать все визиты
 SELECT * FROM Visits;
 
--- ОПТИМИЗИРОВАТЬ ГОВНО НИЖЕ
-
 -- Задание 1: Все номера комнат, где гости мужского пола, не из Европы
 SELECT DISTINCT V.Room FROM Visits V JOIN Guests G1 ON V.GuestID1 = G1.GuestID JOIN Guests G2 ON V.GuestID2 = G2.GuestID WHERE (G1.Gender = 'Male' AND G1.Continent <> 'Europe') OR (G2.Gender = 'Male' AND G2.Continent <> 'Europe');
 
